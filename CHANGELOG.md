@@ -2,6 +2,12 @@
 # Changelog
 All notable changes to Mainsail will be documented in this file.
 
+## [2.11.3](https://github.com/mainsail-crew/mainsail/releases/tag/v2.11.3) - 2024-05-09
+### Bug Fixes and Improvements
+
+- Remove the remote server function
+- Modify project_owner so that moonraker connects to the correct link
+
 ## [2.11.2](https://github.com/mainsail-crew/mainsail/releases/tag/v2.11.2) - 2024-05-04
 ### Bug Fixes and Improvements
 
