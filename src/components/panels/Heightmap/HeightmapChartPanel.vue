@@ -197,8 +197,9 @@ export default class HeightmapChartPanel extends Mixins(BaseMixin, ControlMixin,
     }
 
     get heightmapRangeLimit(): number[] {
-        const minRange = Math.round(Math.max(Math.abs(this.min), Math.abs(this.max)) * 10) / 10
-        const maxRange = Math.max(minRange, 1)
+        const roundValue = Math.round(Math.max(Math.abs(this.min), Math.abs(this.max)) * 10) / 10
+        const minRange = Math.max(roundValue, 1)
+        const maxRange = Math.max(minRange, 2)
 
         return [minRange, maxRange]
     }
