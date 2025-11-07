@@ -81,14 +81,14 @@ jobs:
           echo "TAG_NAME=$(git describe --tags $(git rev-list --tags --max-count=1))" >> $GITHUB_OUTPUT
 
       - name: Generate a changelog
-        uses: orhun/git-cliff-action@v2
+        uses: orhun/git-cliff-action@v4
         id: generate-changelog
         with:
           config: ./cliff-release.toml
           args: ${{ steps.latest_tag.outputs.TAG_NAME }}..HEAD
 
       - name: Create release and upload build
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         id: create-release
         with:
           name: v${{ github.event.inputs.version }}
@@ -96,20 +96,6 @@ jobs:
           token: ${{ secrets.PAT }}
           files: ./mainsail.zip
           body: ${{ steps.generate-changelog.outputs.content }}
-
-      - name: Copy remote configs to dist
-        shell: bash
-        run: cp ./remote/* ./dist/
-
-      - name: Upload to remote server
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.REMOTEHOST }}
-          username: ${{ secrets.REMOTEUSER }}
-          password: ${{ secrets.REMOTEPASSWORD }}
-          dangerous-clean-slate: true
-          exclude: .htaccess
-          local-dir: ./dist/
 
   update-changelog:
     needs: ['release']
@@ -130,7 +116,7 @@ jobs:
           echo "TAG_NAME=$(git describe --tags $(git rev-list --tags --max-count=1))" >> $GITHUB_OUTPUT
 
       - name: Generate a changelog
-        uses: orhun/git-cliff-action@v2
+        uses: orhun/git-cliff-action@v4
         id: git-cliff
         with:
           config: cliff.toml

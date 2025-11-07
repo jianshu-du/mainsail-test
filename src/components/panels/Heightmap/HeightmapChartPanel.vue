@@ -189,7 +189,7 @@ export default class HeightmapChartPanel extends Mixins(BaseMixin, ControlMixin,
     }
 
     get scaleZMax(): number {
-        return this.$store.state.gui.view.heightmap.scaleZMax ?? 0.5
+        return this.$store.state.gui.view.heightmap.scaleZMax ?? 3.5
     }
 
     set scaleZMax(newVal) {
@@ -197,8 +197,9 @@ export default class HeightmapChartPanel extends Mixins(BaseMixin, ControlMixin,
     }
 
     get heightmapRangeLimit(): number[] {
-        const minRange = Math.round(Math.max(Math.abs(this.min), Math.abs(this.max)) * 10) / 10
-        const maxRange = Math.max(minRange, 1)
+        const roundValue = Math.round(Math.max(Math.abs(this.min), Math.abs(this.max)) * 10) / 10
+        const minRange = Math.max(roundValue, 3)
+        const maxRange = Math.max(minRange, 4)
 
         return [minRange, maxRange]
     }
